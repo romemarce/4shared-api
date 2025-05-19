@@ -2,35 +2,27 @@
 
 import { useState } from 'react';
 
-
 export default function Home() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
-  const offset = "0";
-  const limit = "10";
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setResults([]);
-    const url = new URL('/api/4shared');
-    url.searchParams.append('query', query);
-    url.searchParams.append('offset', offset);
-    url.searchParams.append('limit', limit);
-    url.searchParams.append('sort', 'name,desc');
-    url.searchParams.append('type', 'mp3');
-    
-    // Realizar la solicitud GET
+
     try {
       const res = await fetch('/api/4shared', {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ q: query }),
       });
-      
+
 
       if (!res.ok) throw new Error(`Error: ${res.statusText}`);
       const data = await res.json();
