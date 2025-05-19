@@ -16,7 +16,7 @@ const oauth = new OAuth({
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get('query') || 'test';
-  const url = `https://api.4shared.com/v1_2/files`;
+  const url = `https://search.4shared.com/v1_2/files`;
 
   const requestData = {
     url: `${url}?query=${encodeURIComponent(query)}`,
