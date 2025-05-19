@@ -22,9 +22,6 @@ export default function Home() {
           'Content-Type': 'application/octet-stream',
           'Authorization': 'Bearer ' + process.env.FOURSHARED_APP_KEY,
         },
-        body: JSON.stringify({
-          q: query,
-        }),
       });
   
       if (!res.ok) throw new Error(`Error: Algo salio mal`);
