@@ -25,18 +25,9 @@ export default function Home() {
     url.searchParams.append('type', 'mp3');
     
     // Realizar la solicitud GET
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${process.env.FOURSHARED_APP_KEY}`,
-      },
-    });
     try {
       const res = await fetch('/api/4shared', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        method: 'GET',
         body: JSON.stringify({ q: query }),
       });
       

@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
     const res = await fetch('https://search.4shared.com/v1_2/files', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'App-Key': process.env.FOURSHARED_APP_KEY || '',
+        'Content-Type': 'application/octet-stream',
+        'Authorization': 'Bearer ' + process.env.FOURSHARED_APP_KEY,
       },
       body: JSON.stringify({
         q: query,
