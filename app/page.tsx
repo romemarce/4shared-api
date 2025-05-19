@@ -16,15 +16,18 @@ export default function Home() {
     setResults([]);
 
     try {
-      const res = await fetch('/api/4shared', {
-        method: 'POST',
+      const res = await fetch('https://search.4shared.com/v1_2/files', {
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/octet-stream',
+          'Authorization': 'Bearer ' + process.env.FOURSHARED_APP_KEY,
         },
-        body: JSON.stringify({ query: query }),
+        body: JSON.stringify({
+          q: query,
+        }),
       });
-
-      if (!res.ok) throw new Error(`Error: ${res.statusText}`);
+  
+      if (!res.ok) throw new Error(`Error: Algo salio mal`);
       const data = await res.json();
       setResults(data.files || []);
     } catch (err: any) {
