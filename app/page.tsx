@@ -16,15 +16,8 @@ export default function Home() {
     setResults([]);
 
     try {
-      const res = await fetch('https://search.4shared.com/v1_2/files', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/octet-stream',
-          'Authorization': 'Bearer ' + process.env.FOURSHARED_APP_KEY,
-        },
-      });
-  
-      if (!res.ok) throw new Error(`Error: Algo salio mal`);
+      const res = await fetch('/api/4shared');
+      if (!res.ok) throw new Error('Error: Algo salió mal');
       const data = await res.json();
       setResults(data.files || []);
     } catch (err: any) {
@@ -32,8 +25,6 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
-
   return (
     <main className="container">
       <h1 className="title">Buscar en 4shared</h1>
