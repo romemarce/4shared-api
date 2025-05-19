@@ -1,9 +1,9 @@
-// pages/api/4shared.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+// app/api/4shared/route.ts
+import { NextResponse } from 'next/server';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
-    const response = await fetch('https://search.4shared.com/v1_2/files', {
+    const res = await fetch('https://search.4shared.com/v1_2/files', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/octet-stream',
@@ -11,13 +11,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    if (!response.ok) {
-      return res.status(response.status).json({ error: 'Algo salió mal' });
+    if (!res.ok) {
+      return NextResponse.json({ error: 'Error en la petición a 4shared' }, { status: res.status });
     }
 
-    const data = await response.json();
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error en el servidor interno' });
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch (err) {
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }
