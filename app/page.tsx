@@ -14,7 +14,7 @@ export default function Home() {
     setLoading(true);
     setError('');
     setResults([]);
-
+  
     try {
       const res = await fetch('/api/4shared');
       if (!res.ok) throw new Error('Error: Algo salió mal');
@@ -25,6 +25,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  }
   return (
     <main className="container">
       <h1 className="title">Buscar en 4shared</h1>
